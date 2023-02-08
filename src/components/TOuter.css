@@ -1,0 +1,19 @@
+div.row {
+  display: flex;
+  margin: 0;
+  padding: 5px 0;
+}
+.row3 {
+  display: flex;
+  line-height: 0.9rem;
+}
+.s2rem {
+  font-size: 2rem;
+  display: flex;
+  justify-content: center;
+  border-right: 1px solid black;
+}
+.row3,
+.s2rem {
+  width: 50px;
+}
