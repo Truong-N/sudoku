@@ -13,6 +13,17 @@ const createArray3D = () => {
   }
   return arr3D;
 };
+const r3x3 = (arr1, rLwr, rUppr, cLwr, cUppr, x, y, z) => {
+  if (x >= rLwr && x < rUppr && y >= cLwr && y < cUppr) {
+    for (let r = rLwr; r < rUppr; r++) {
+      for (let c = cLwr; c < cUppr; c++) {
+        arr1[r][c][z] = 0;
+        // console.log("r: ", r, " c: ", c, " z: ", z);
+      }
+    }
+  }
+  return arr1;
+};
 const TOuter = () => {
   const arrGiven = [
     [0, 4, 3, 0, 0, 0, 0, 0, 0],
@@ -25,17 +36,33 @@ const TOuter = () => {
     [8, 0, 0, 0, 0, 2, 7, 1, 5],
     [0, 0, 0, 0, 0, 0, 4, 3, 0],
   ];
-  const arr1 = createArray3D();
+  let arr1 = createArray3D();
   arrGiven.forEach((aGItem, x) => {
     aGItem.forEach((item, y) => {
       if (item > 0) {
         const z = item - 1;
         for (let i = 0; i < 9; i++) {
-          arr1[x][i][z] = 0;
-          arr1[i][y][z] = 0;
+          arr1[x][i][z] = 0; // set 0 to horizontal or row
+          arr1[i][y][z] = 0; // set 0 to vertical or column
+          arr1[x][y][i] = 0; // set 0 to all numbers in cell
         }
+        let lwr = 0;
+        let uppr = 3;
+        r3x3(arr1, 0, 3, 0, 3, x, y, z);
+        r3x3(arr1, 0, 3, 3, 6, x, y, z);
+        r3x3(arr1, 0, 3, 6, 9, x, y, z);
+        r3x3(arr1, 3, 6, 0, 3, x, y, z);
+        r3x3(arr1, 3, 6, 3, 6, x, y, z);
+        r3x3(arr1, 3, 6, 6, 9, x, y, z);
+        r3x3(arr1, 6, 9, 0, 3, x, y, z);
+        r3x3(arr1, 6, 9, 3, 6, x, y, z);
+        r3x3(arr1, 6, 9, 6, 9, x, y, z);
       }
     });
+  });
+  // find lone cell in a row
+  arr1.forEach((arr1x, x) => {
+    console.log(arr1x);
   });
   const el = arrGiven
     .map((a0, index) =>
