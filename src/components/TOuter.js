@@ -1,3 +1,5 @@
+import { useState } from "react";
+import CellSolvedArray from "./CellSolvedArray";
 import "./TOuter.css";
 import TOuter2 from "./TOuter2";
 const createArray3D = () => {
@@ -25,6 +27,7 @@ const r3x3 = (arr1, rLwr, rUppr, cLwr, cUppr, x, y, z) => {
   return arr1;
 };
 const TOuter = () => {
+  const [currentNum, setCurrentNum] = useState(1);
   const arrGiven = [
     [0, 4, 3, 0, 0, 0, 0, 0, 0],
     [2, 6, 9, 5, 0, 0, 0, 0, 0],
@@ -69,9 +72,9 @@ const TOuter = () => {
       a0.map((item, i) => (
         <section key={i}>
           {item ? (
-            <div className="s2rem">{item}</div>
+            <CellSolvedArray currentNum={currentNum} num={item} />
           ) : (
-            <TOuter2 arr={arr1[index][i]} />
+            <TOuter2 currentNum={currentNum} arr={arr1[index][i]} />
           )}
         </section>
       ))
