@@ -15,7 +15,7 @@ const createArray3D = () => {
   }
   return arr3D;
 };
-const r3x3 = (arr1, rLwr, rUppr, cLwr, cUppr, x, y, z) => {
+const group_3row_3col = (arr1, rLwr, rUppr, cLwr, cUppr, x, y, z) => {
   if (x >= rLwr && x < rUppr && y >= cLwr && y < cUppr) {
     for (let r = rLwr; r < rUppr; r++) {
       for (let c = cLwr; c < cUppr; c++) {
@@ -27,7 +27,8 @@ const r3x3 = (arr1, rLwr, rUppr, cLwr, cUppr, x, y, z) => {
   return arr1;
 };
 const TOuter = () => {
-  const [currentNum, setCurrentNum] = useState(1);
+  const [currentNum, setCurrentNum] = useState(0);
+  const [pencil, setPencil] = useState(false);
   const arrGiven = [
     [0, 4, 3, 0, 0, 0, 0, 0, 0],
     [2, 6, 9, 5, 0, 0, 0, 0, 0],
@@ -51,30 +52,36 @@ const TOuter = () => {
         }
         let lwr = 0;
         let uppr = 3;
-        r3x3(arr1, 0, 3, 0, 3, x, y, z);
-        r3x3(arr1, 0, 3, 3, 6, x, y, z);
-        r3x3(arr1, 0, 3, 6, 9, x, y, z);
-        r3x3(arr1, 3, 6, 0, 3, x, y, z);
-        r3x3(arr1, 3, 6, 3, 6, x, y, z);
-        r3x3(arr1, 3, 6, 6, 9, x, y, z);
-        r3x3(arr1, 6, 9, 0, 3, x, y, z);
-        r3x3(arr1, 6, 9, 3, 6, x, y, z);
-        r3x3(arr1, 6, 9, 6, 9, x, y, z);
+        group_3row_3col(arr1, 0, 3, 0, 3, x, y, z);
+        group_3row_3col(arr1, 0, 3, 3, 6, x, y, z);
+        group_3row_3col(arr1, 0, 3, 6, 9, x, y, z);
+        group_3row_3col(arr1, 3, 6, 0, 3, x, y, z);
+        group_3row_3col(arr1, 3, 6, 3, 6, x, y, z);
+        group_3row_3col(arr1, 3, 6, 6, 9, x, y, z);
+        group_3row_3col(arr1, 6, 9, 0, 3, x, y, z);
+        group_3row_3col(arr1, 6, 9, 3, 6, x, y, z);
+        group_3row_3col(arr1, 6, 9, 6, 9, x, y, z);
       }
     });
   });
   // find lone cell in a row
-  arr1.forEach((arr1x, x) => {
-    console.log(arr1x);
-  });
+  // arr1.forEach((arr1x, x) => {
+  //   console.log(arr1x);
+  // });
   const el = arrGiven
-    .map((a0, index) =>
-      a0.map((item, i) => (
-        <section key={i}>
+    .map((a0, x) =>
+      a0.map((item, y) => (
+        <section key={y}>
           {item ? (
             <CellSolvedArray currentNum={currentNum} num={item} />
           ) : (
-            <TOuter2 currentNum={currentNum} arr={arr1[index][i]} />
+            <TOuter2
+              currentNum={currentNum}
+              x={x}
+              y={y}
+              arr={arr1}
+              pencil={pencil}
+            />
           )}
         </section>
       ))
@@ -84,6 +91,95 @@ const TOuter = () => {
         {item}
       </div>
     ));
-  return <>{el}</>;
+  function currentNumChange(e) {
+    setCurrentNum(Number(e.target.value));
+  }
+  function handleChanged(e) {
+    console.log(e.target.id);
+    if (e.target.id === "pencil") {
+      setPencil(!pencil);
+    } else setCurrentNum(Number(e.target.value));
+  }
+  return (
+    <>
+      {el}
+      <form>
+        <input
+          type="radio"
+          id="one"
+          name="curNum"
+          value="1"
+          onChange={handleChanged}
+        ></input>
+        <label htmlFor="one">1</label>
+        <input
+          type="radio"
+          id="two"
+          name="curNum"
+          value="2"
+          onChange={handleChanged}
+        ></input>
+        <label htmlFor="two">2</label>
+        <input
+          type="radio"
+          id="three"
+          name="curNum"
+          value="3"
+          onChange={handleChanged}
+        ></input>
+        <label htmlFor="three">3</label>
+        <input
+          type="radio"
+          id="four"
+          name="curNum"
+          value="4"
+          onChange={handleChanged}
+        ></input>
+        <label htmlFor="four">4</label>
+        <input
+          type="radio"
+          id="five"
+          name="curNum"
+          value="5"
+          onChange={handleChanged}
+        ></input>
+        <label htmlFor="five">5</label>
+        <input
+          type="radio"
+          id="six"
+          name="curNum"
+          value="6"
+          onChange={handleChanged}
+        ></input>
+        <label htmlFor="six">6</label>
+        <input
+          type="radio"
+          id="seven"
+          name="curNum"
+          value="7"
+          onChange={handleChanged}
+        ></input>
+        <label htmlFor="seven">7</label>
+        <input
+          type="radio"
+          id="eight"
+          name="curNum"
+          value="8"
+          onChange={handleChanged}
+        ></input>
+        <label htmlFor="eight">8</label>
+        <input
+          type="radio"
+          id="nine"
+          name="curNum"
+          value="9"
+          onChange={handleChanged}
+        ></input>
+        <label htmlFor="nine">9</label>
+        <input type="checkbox" id="pencil" onChange={handleChanged}></input>
+        <label htmlFor="pencil">Pencil</label>
+      </form>
+    </>
+  );
 };
 export default TOuter;

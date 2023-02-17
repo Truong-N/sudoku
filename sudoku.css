@@ -1,0 +1,15 @@
+div span {
+  /* min-width: 15px; */
+  width: 15px;
+  /* border: 1px solid black; */
+  margin: 0;
+  padding: 0;
+}
+.z-unsolved {
+  margin: 0px;
+}
+.given {
+  font-size: 2rem;
+  min-width: 2rem;
+  text-align: center;
+}
