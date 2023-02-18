@@ -25,21 +25,6 @@ const group_3row_3col = (unsolvedArray, rLwr, rUppr, cLwr, cUppr, x, y, z) => {
 const handleClickRadio = (value) => {
   currentNumber = Number(value);
   render();
-  //   arrGiven.forEach((arrGivenRow, r) => {
-  //     arrGivenRow.forEach((arrGivenRowCol, c) => {
-  //       document.getElementById(`sr${r}c${c}`).style.background = "white";
-  //       if (arrGivenRowCol === Number(value)) {
-  //         document.getElementById(`sr${r}c${c}`).style.background = "yellow";
-  //       }
-  //       for (let z = 0; z < 9; z++) {
-  //         document.getElementById(`ur${r}c${c}z${z}`).style.background = "white";
-  //         if (unsolvedArray[r][c][z] === Number(value)) {
-  //           document.getElementById(`ur${r}c${c}z${z}`).style.background =
-  //             "yellow";
-  //         }
-  //       }
-  //     });
-  //   });
 };
 const highlight = () => {
   for (let row = 0; row < 9; row++) {
@@ -67,19 +52,21 @@ const highlight = () => {
 const handleClickPencil = () => {
   pencil = !pencil;
 };
+
 const unsolvedClick = (unsolve_id) => {
   const row = Number(unsolve_id[2]);
   const col = Number(unsolve_id[4]);
   if (pencil) {
     unsolvedEliminated[row][col][currentNumber - 1] = 0;
   } else {
-    solvedArray[row][col] = currentNumber;
+    // console.log("a")
+    if (checkOk(row, col, currentNumber)) {
+      solvedArray[row][col] = currentNumber;
+      render();
+    } else {
+      alert("Error");
+    }
   }
-  render();
-
-  console.log("row: ", row);
-  console.log("col: ", col);
-  console.log(solvedArray);
 };
 const arrGiven = [
   [0, 4, 3, 0, 0, 0, 0, 0, 0],
@@ -93,7 +80,7 @@ const arrGiven = [
   [0, 0, 0, 0, 0, 0, 4, 3, 0],
 ];
 const solvedArray = [...arrGiven];
-console.log(solvedArray);
+// console.log(solvedArray);
 let pencil = false;
 let currentNumber = 0;
 let unsolvedArray = createArray3D();
@@ -168,28 +155,17 @@ const assigned = () => {
     for (let c = 0; c < 9; c++) {
       solved_id = `sr${r}c${c}`;
       document.getElementById(solved_id).textContent = solvedArray[r][c];
-      //   unsolved_row_col = `ur${r}c${c}`;
-      //   document.getElementById(solved_id).style.display = "block";
-      //   document.getElementById(unsolved_row_col).style.display = "block";
-      //   if (solvedArray[r][c] > 0) {
-      //     document.getElementById(unsolved_row_col).style.display = "none";
-      //     document.getElementById(solved_id).style.textAlign = "center";
-      //     document.getElementById(solved_id).style.border = "1px solid black";
-      //     document.getElementById(solved_id).style.width = "45px";
-      //   } else {
-      //     document.getElementById(solved_id).style.display = "none";
-      //     document.getElementById(unsolved_row_col).style.textAlign = "center";
-      //     document.getElementById(unsolved_row_col).style.border =
-      //       "1px solid black";
-      //     document.getElementById(unsolved_row_col).style.width = "45px";
-      //   }
       for (let z = 0; z < 9; z++) {
         const unsolved_row_col_z = `ur${r}c${c}z${z}`;
-        // document.getElementById(unsolved_row_col_z).style.width = "15px";
-        document.getElementById(unsolved_row_col_z).textContent =
-          unsolvedArray[r][c][z] > unsolvedEliminated[r][c][z]
-            ? unsolvedArray[r][c][z]
-            : "-";
+
+        if (unsolvedArray[r][c][z] === unsolvedEliminated[r][c][z]) {
+          if (unsolvedArray[r][c][z]) {
+            document.getElementById(unsolved_row_col_z).textContent =
+              unsolvedArray[r][c][z];
+          } else {
+            document.getElementById(unsolved_row_col_z).textContent = "";
+          }
+        }
       }
     }
   }

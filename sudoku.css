@@ -5,9 +5,11 @@ body {
   padding: 1rem;
   /* background: lightgray; */
 }
-div span {
+span {
   /* min-width: 15px; */
-  width: 15px;
+  max-width: 10px;
+  width: 100%;
+  display: inline-block;
   /* border: 1px solid black; */
   margin: 0;
   padding: 0;
