@@ -1,12 +1,14 @@
-import TOuter from "./components/TOuter";
-
-import "./App.css";
+// import "./App.css";
+import { ContextProvider } from "./context";
+import Gameboard from "./components/Gameboard";
 
 function App() {
   return (
-    <div className="App">
-      <TOuter />
-    </div>
+    <ContextProvider>
+      <div className="App">
+        <Gameboard />
+      </div>
+    </ContextProvider>
   );
 }
 

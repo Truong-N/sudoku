@@ -11,6 +11,41 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+.solved {
+  font-size: 3rem;
+  /* max-width: 3rem; */
+  width: 3.5rem;
+  max-height: 3.5rem;
+  border: 1px solid black;
+}
+.row {
+  display: flex;
+  margin: 0;
+}
+.row3 {
+  display: flex;
+}
 .highlight {
   background: yellow;
+}
+.unsolve-r-c {
+  border: 1px solid black;
+  max-width: 3rem;
+  height: 3.5rem;
+}
+.unsolved-z {
+  width: calc(3.6rem / 3);
+  margin: 0;
+  padding: 0;
+  height: calc(3rem / 3);
+}
+.flex {
+  display: flex;
+  justify-content: space-around;
+}
+.mr-1 {
+  margin-right: 1rem;
+}
+.mb-1 {
+  margin-bottom: 1rem;
 }
